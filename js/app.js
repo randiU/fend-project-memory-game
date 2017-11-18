@@ -97,16 +97,20 @@ function clickAndCompare() {
         openedCards = [];
         clickOpenCount = 0;
       } else {
-        console.log('dang!');
-        console.log(firstCard, secondCard);
-        openedCards[0].removeClass('open');
-        openedCards[0].addClass('front');
-        openedCards[1].removeClass('open');
-        openedCards[1].addClass('front');
-        openedCards = [];
-        clickOpenCount = 0;
+        setTimeout(function() {
+          console.log('dang!');
+          console.log(firstCard, secondCard);
+          openedCards[0].removeClass('open');
+          openedCards[0].addClass('front');
+          openedCards[1].removeClass('open');
+          openedCards[1].addClass('front');
+          openedCards = [];
+          clickOpenCount = 0;
+        }, 750);
 
-        console.log(openedCards[0], openedCards[1]);
+
+
+
       }
 
 
@@ -121,19 +125,12 @@ function clickAndCompare() {
    }
   });
 
-  /*if (firstClick === secondClick) {
-    firstClick.freeze(obj);
-    secondClick.freeze(obj);
-    console.log(firstClick);
-    console.log(secondClick);
-  };*/
- // console.log(firstClick);
- // console.log(secondClick);
+
 };
 
 
 
 
-//startGame();
+startGame();
 clickAndCompare();
 //});
