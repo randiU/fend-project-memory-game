@@ -57,32 +57,64 @@ function startGame() {
 var openedCards = [];
 
 function clickAndCompare() {
-  var clickMatchCount = 0;
+  var clickOpenCount = 0;
 
   $('.front').click(function() {
     var $clickedCard = $(this);
 
     var isOpen = $clickedCard.hasClass("open")
 
-    console.log(isOpen)
+    console.log(isOpen) //should be false initially, class has not been toggled to open.
 
     if (openedCards.length < 2 && !isOpen) {// isOpen === false
        $clickedCard.toggleClass('front');
        $clickedCard.toggleClass('open');
 
-       openedCards.push($clickedCard)
+       openedCards.push($clickedCard) //adds clicked card to openedCards array
 
-     // firstClick = (this);
-      clickMatchCount += 1;
-     // console.log(firstClick);
-     // console.log(clickMatchCount);
+       clickOpenCount += 1;
+
    }
 
    if (openedCards.length === 2) {
         // https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
-        console.log(openedCards[0].children().attr('class'),  openedCards[1].children().attr('class'), openedCards[0].children().attr('class') === openedCards[1].children().attr('class'))
+        var firstCard = openedCards[0].children().attr('class');
+        var secondCard = openedCards[1].children().attr('class');
 
+        console.log(openedCards[0].children().attr('class'),
+        openedCards[1].children().attr('class'),
+        openedCards[0].children().attr('class') === openedCards[1].children().attr('class'))
+
+        //print what was stored in openedCards
+        console.log(firstCard, secondCard);
       // compare
+      if (firstCard === secondCard) {
+        console.log('match!');
+        openedCards[0].removeClass('open');
+        openedCards[1].removeClass('open');
+        openedCards[0].addClass('match');
+        openedCards[1].addClass('match');
+        openedCards = [];
+        clickOpenCount = 0;
+      } else {
+        console.log('dang!');
+        console.log(firstCard, secondCard);
+        openedCards[0].removeClass('open');
+        openedCards[0].addClass('front');
+        openedCards[1].removeClass('open');
+        openedCards[1].addClass('front');
+        openedCards = [];
+        clickOpenCount = 0;
+
+        console.log(openedCards[0], openedCards[1]);
+      }
+
+
+
+
+
+
+
       // if cards match, add match class
       // otherwise remove class open
       // you could use a setTimout function to delay
@@ -102,6 +134,6 @@ function clickAndCompare() {
 
 
 
-startGame();
+//startGame();
 clickAndCompare();
 //});
