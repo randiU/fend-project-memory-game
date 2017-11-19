@@ -1,12 +1,12 @@
 //$(document).ready(function() {
 //  "use strict";
 //changes color of box mouse is hovering over to light gray
-/**$('.front').hover(function() {
+$('.front').hover(function() {
     $(this).css('background','#889da0');
   },
   function() {
     $(this).css('background','#2e3d49');
-  }); */
+  }); 
 var cardPics, clickCheck, cardChild, refreshPage, start,
 
   cardPics = ['fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-cube', 'fa fa-leaf',
@@ -16,11 +16,7 @@ var cardPics, clickCheck, cardChild, refreshPage, start,
   chosenCard = $('.card'),
   start = $('.start'),
   cardChild = chosenCard.children(),
-  //flips card over to reveal image
-  /*clickCheck = $('.front').click(function() {
-    $(this).toggleClass('front');
-    $(this).toggleClass('open');
-  }),*/
+
   //refreshes page
   refreshPage = $("button").click(function() {
     location.reload(true);
@@ -43,7 +39,7 @@ function shuffle(array) {
 }
 
 //Uses start button to shuffle cards
-function startGame() {
+function shuffleCards() {
   //starts by shuffling cards
   shuffle(cardPics);
   cardChild.removeClass();
@@ -58,22 +54,16 @@ var openedCards = [];
 
 function clickAndCompare() {
   var clickOpenCount = 0;
-
   $('.front').click(function() {
     var $clickedCard = $(this);
-
     var isOpen = $clickedCard.hasClass("open")
-
     console.log(isOpen) //should be false initially, class has not been toggled to open.
 
     if (openedCards.length < 2 && !isOpen) {// isOpen === false
        $clickedCard.toggleClass('front');
        $clickedCard.toggleClass('open');
-
        openedCards.push($clickedCard) //adds clicked card to openedCards array
-
        clickOpenCount += 1;
-
    }
 
    if (openedCards.length === 2) {
@@ -87,7 +77,7 @@ function clickAndCompare() {
 
         //print what was stored in openedCards
         console.log(firstCard, secondCard);
-      // compare
+      // compares cards, if a match update color, if no match flip back
       if (firstCard === secondCard) {
         console.log('match!');
         openedCards[0].removeClass('open');
@@ -106,31 +96,20 @@ function clickAndCompare() {
           openedCards[1].addClass('front');
           openedCards = [];
           clickOpenCount = 0;
-        }, 750);
-
-
-
+        }, 780);
 
       }
-
-
-
-
-
-
-
       // if cards match, add match class
       // otherwise remove class open
       // you could use a setTimout function to delay
    }
   });
-
-
 };
 
 
 
 
-startGame();
+
+shuffleCards();
 clickAndCompare();
 //});
