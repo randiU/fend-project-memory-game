@@ -2,7 +2,7 @@
 //  "use strict";
 
 
-var cardPics, clickCheck, cardChild, refreshPage, start,
+var cardPics, chosenCard, clickCheck, cardChild, refreshPage, start,
 
   cardPics = ['fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-cube', 'fa fa-leaf',
     'fa fa-bicycle', 'fa fa-bomb', 'fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-cube',
@@ -47,6 +47,12 @@ function shuffleCards() {
 // variable holds array with cards that have been clicked on/open.
 var openedCards = [];
 var matches = 0;
+
+function endGame() {
+  if (matches === 8) {
+    alert("You've Won!!!");
+  };
+};
 
 function clickAndCompare() {
   var clickOpenCount = 0;
@@ -95,18 +101,12 @@ function clickAndCompare() {
           clickOpenCount = 0;
         }, 780);
       }
-      if (matches === 8) {
-        alert("You win!!!!");
-      };  
-
-      // if cards match, add match class
-      // otherwise remove class open
-      // you could use a setTimout function to delay
-   }
-
+      setTimeout(endGame, 780);
+   };
   });
 
 };
+
 
 /*$('.front').hover(function() {
     $(this).css('background','#889da0');
