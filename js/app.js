@@ -1,19 +1,19 @@
 //$(document).ready(function() {
 //  "use strict";
 
-
-var cardPics, chosenCard, clickCheck, cardChild, refreshPage, start,
-
-  cardPics = ['fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-cube', 'fa fa-leaf',
+var cardPics = ['fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-cube', 'fa fa-leaf',
     'fa fa-bicycle', 'fa fa-bomb', 'fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-cube',
     'fa fa-leaf', 'fa fa-bicycle', 'fa fa-bomb'
-  ],
-  chosenCard = $('.card'),
-  start = $('.start'),
-  cardChild = chosenCard.children(),
-
+  ]
+var chosenCard = $('.card')
+var start = $('.start')
+var cardChild = chosenCard.children()
+// variable holds array with cards that have been clicked on/open.
+var openedCards = [];
+var matches = 0;
+var timer = $('.timer');
   //refreshes page
-  refreshPage = $("button").click(function() {
+var refreshPage = $("button").click(function() {
     location.reload(true);
   });
 
@@ -33,7 +33,7 @@ function shuffle(array) {
   return array;
 }
 
-//Uses start button to shuffle cards
+//shuffles cards immediately
 function shuffleCards() {
   //starts by shuffling cards
   shuffle(cardPics);
@@ -44,16 +44,14 @@ function shuffleCards() {
   });
 };
 
-// variable holds array with cards that have been clicked on/open.
-var openedCards = [];
-var matches = 0;
-
+//Prompts user that they've won the game
 function endGame() {
   if (matches === 8) {
     alert("You've Won!!!");
   };
 };
 
+//Compares 2 cards that user clicks on. Leaves them open if they match, flips them back if they don't.
 function clickAndCompare() {
   var clickOpenCount = 0;
 
@@ -107,6 +105,41 @@ function clickAndCompare() {
 
 };
 
+//Decreases stars based on how many click attempts user has made(doesn't work)
+var numberOfClicks = 0;
+function stars() {
+
+  chosenCard.click(function() {
+    numberOfClicks += 1;
+    console.log("you've clicked " + numberOfClicks + " times");
+    if (numberOfClicks > 0 && numberOfClicks <= 20) {
+      console.log("good job");
+    };
+    if (numberOfClicks > 20 && numberOfClicks <= 30) {
+      console.log("alright job");
+    };
+    if (numberOfClicks > 30 && numberOfClicks <= 40) {
+      console.log("try harder");
+    };
+    if (numberOfClicks > 40) {
+      console.log("you should just quit!");
+    };
+
+  });
+
+};
+
+
+/*function clickStartTimer() {
+  var firstClick = 0
+  chosenCard.click(function() {
+    firstClick += 1;
+    console.log(firstClick);
+  });
+  if (firstClick === 1) {
+    console.log("that's a start")
+  };
+};*/
 
 /*$('.front').hover(function() {
     $(this).css('background','#889da0');
@@ -120,4 +153,8 @@ function clickAndCompare() {
 
 shuffleCards();
 clickAndCompare();
+stars();
+//clickStartTimer();
+
+
 //});
