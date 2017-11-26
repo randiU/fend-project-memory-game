@@ -64,7 +64,7 @@ function shuffleCards() {
 //Prompts user that they've won the game and stops the timer
 function endGame() {
   if (matches === 8) {
-    alert("You've Won!!!");
+    alert("You've Won!!! It took " + endTime + " and " + movesNumber + " moves!");
     clearInterval(timerGo);
   };
 };
@@ -139,15 +139,8 @@ function stars() {
   chosenCard.click(function() {
     numberOfClicks += 1;
     console.log("you've clicked " + numberOfClicks + " times");
-    if (numberOfClicks > 0 && numberOfClicks <= 20) {
-      console.log("good job");
-    }
     if (numberOfClicks > 20 && numberOfClicks <= 30) {
-      console.log("alright job");
-      //$(".stars:eq(2)").append("<i class=\"fa fa-star-o\"></i>");
-      //var thirdStar = $("ul.stars li:eq(2)");
-      //console.log(thirdStar);
-      //console.log($(".stars").children());
+
       $(".stars").children().remove();
       $(".stars").append("<li><i class=\"fa fa-star\"></i></li>");
       $(".stars").append("<li><i class=\"fa fa-star\"></i></li>");
@@ -155,14 +148,14 @@ function stars() {
 
     }
     if (numberOfClicks > 30 && numberOfClicks <= 40) {
-      console.log("try harder");
+
       $(".stars").children().remove();
       $(".stars").append("<li><i class=\"fa fa-star\"></i></li>");
       $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
       $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
     }
     if (numberOfClicks > 40) {
-      console.log("you should just quit!");
+
       $(".stars").children().remove();
       $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
       $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
@@ -170,19 +163,6 @@ function stars() {
     }
   });
 }
-
-
-
-/*function clickStartTimer() {
-  var firstClick = 0
-  chosenCard.click(function() {
-    firstClick += 1;
-    console.log(firstClick);
-  });
-  if (firstClick === 1) {
-    console.log("that's a start")
-  };
-};*/
 
 /*$(".front").hover(
   function() {
@@ -200,25 +180,37 @@ function stars() {
   }
 );*/
 
-function startTimer() {
-  var start = new Date();
+//timer stars once user clicks on the first card
+startTime = 0;
+var counter = 0;
+var endTime = 0;
 
-  timerGo = setInterval(function() {
-    //$('.Timer').text((new Date - start) / 1000 + " Seconds");
-    var seconds = Math.floor((new Date() - start) / 1000);
-    var timerText = seconds + " Seconds";
-    // console.log(seconds)
-    $(".timer").text(timerText);
-    var endTime = timerText;
-  }, 1000);
+function startTimer() {
+  console.log(counter);
+    $(".front").click(function() {
+      if (counter === 0) {
+        counter = 1;
+        startTime = new Date();
+        timerGo = setInterval(function() {
+          //$('.Timer').text((new Date - start) / 1000 + " Seconds");
+          var seconds = Math.floor((new Date() - startTime) / 1000);
+          var timerText = seconds + " Seconds";
+          $(".timer").text(timerText);
+          endTime = timerText;
+
+        }, 1000);
+      };
+    });
+
 }
 
 // clearInterval(timerGo); // stop the timer
 
-shuffleCards();
+//shuffleCards();
 clickAndCompare();
 stars();
 startTimer();
 movesUpdate();
+
 
 //});
