@@ -28,12 +28,21 @@ var timer = $(".timer");
 var endTime = null;
 var numberOfClicks = 0;
 var movesNumber = 0;
+//startTimer variables
 var timerGo;
+startTime = 0;
+var counter = 0;
+var endTime = 0;
+//endGame variables
+//https://www.w3schools.com/howto/howto_css_modals.asp
+var modal = document.getElementById('myModal');
+var span = document.getElementsByClassName("close")[0];
 
 //refreshes page
 var refreshPage = $("button").click(function() {
   location.reload(true);
 });
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -64,10 +73,23 @@ function shuffleCards() {
 //Prompts user that they've won the game and stops the timer
 function endGame() {
   if (matches === 8) {
-    alert("You've Won!!! It took " + endTime + " and " + movesNumber + " moves!");
     clearInterval(timerGo);
+    modal.style.display = "block";
   };
 };
+
+//https://www.w3schools.com/howto/howto_css_modals.asp
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+//https://www.w3schools.com/howto/howto_css_modals.asp
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
 //states how many times user has clicked on cards
 function movesUpdate() {
@@ -181,10 +203,6 @@ function stars() {
 );*/
 
 //timer stars once user clicks on the first card
-startTime = 0;
-var counter = 0;
-var endTime = 0;
-
 function startTimer() {
   console.log(counter);
     $(".front").click(function() {
@@ -197,12 +215,11 @@ function startTimer() {
           var timerText = seconds + " Seconds";
           $(".timer").text(timerText);
           endTime = timerText;
-
         }, 1000);
       };
     });
-
 }
+
 
 // clearInterval(timerGo); // stop the timer
 
