@@ -28,11 +28,13 @@ var timer = $(".timer");
 var endTime = null;
 var numberOfClicks = 0;
 var movesNumber = 0;
+
 //startTimer variables
 var timerGo;
 startTime = 0;
 var counter = 0;
 var endTime = 0;
+
 //endGame variables
 //https://www.w3schools.com/howto/howto_css_modals.asp
 var modal = document.getElementById('myModal');
@@ -75,6 +77,7 @@ function endGame() {
   if (matches === 8) {
     clearInterval(timerGo);
     modal.style.display = "block";
+    $("#gameStats").text("You received " + starCount + " stars and it took " + endTime + " seconds to finish.");
   };
 };
 
@@ -157,12 +160,13 @@ function clickAndCompare() {
 }
 
 //Decreases stars based on how many click attempts user has made(doesn't work)
+var starCount = 3;
 function stars() {
   chosenCard.click(function() {
     numberOfClicks += 1;
     console.log("you've clicked " + numberOfClicks + " times");
     if (numberOfClicks > 20 && numberOfClicks <= 30) {
-
+      starCount = 2;
       $(".stars").children().remove();
       $(".stars").append("<li><i class=\"fa fa-star\"></i></li>");
       $(".stars").append("<li><i class=\"fa fa-star\"></i></li>");
@@ -170,14 +174,14 @@ function stars() {
 
     }
     if (numberOfClicks > 30 && numberOfClicks <= 40) {
-
+      starCount = 1;
       $(".stars").children().remove();
       $(".stars").append("<li><i class=\"fa fa-star\"></i></li>");
       $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
       $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
     }
     if (numberOfClicks > 40) {
-
+      starCount = 0;
       $(".stars").children().remove();
       $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
       $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
