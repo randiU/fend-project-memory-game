@@ -227,7 +227,7 @@ function startTimer() {
 
 // clearInterval(timerGo); // stop the timer
 
-//shuffleCards();
+shuffleCards();
 clickAndCompare();
 stars();
 startTimer();
