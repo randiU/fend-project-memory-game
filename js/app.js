@@ -122,20 +122,9 @@ function clickAndCompare() {
       // https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
       var firstCard = openedCards[0].children().attr("class");
       var secondCard = openedCards[1].children().attr("class");
-      console.log(openedCards[0,1]);
       var firstId = openedCards[0].attr("id");
       var secondId = openedCards[1].attr("id");
-      console.log(firstId,secondId);
-      //test
-      /*console.log(
-        openedCards[0].children().attr("class"),
-        openedCards[1].children().attr("class"),
-        openedCards[0].children().attr("class") ===
-          openedCards[1].children().attr("class")
-      );
 
-      //print what was stored in openedCards
-      console.log(firstCard, secondCard); */
       // compares cards, if a match update color, if no match flip back
       if (firstCard === secondCard && firstId != secondId) {
         console.log("match!");
@@ -170,7 +159,7 @@ function stars() {
   chosenCard.click(function() {
     numberOfClicks += 1;
     console.log("you've clicked " + numberOfClicks + " times");
-    if (numberOfClicks > 20 && numberOfClicks <= 30) {
+    if (numberOfClicks > 26 && numberOfClicks <= 37) {
       starCount = 2;
       $(".stars").children().remove();
       $(".stars").append("<li><i class=\"fa fa-star\"></i></li>");
@@ -178,14 +167,14 @@ function stars() {
       $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
 
     }
-    if (numberOfClicks > 30 && numberOfClicks <= 40) {
+    if (numberOfClicks > 37 && numberOfClicks <= 47) {
       starCount = 1;
       $(".stars").children().remove();
       $(".stars").append("<li><i class=\"fa fa-star\"></i></li>");
       $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
       $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
     }
-    if (numberOfClicks > 40) {
+    if (numberOfClicks > 47) {
       starCount = 0;
       $(".stars").children().remove();
       $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
