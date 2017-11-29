@@ -37,14 +37,13 @@ var endTime = 0;
 
 //endGame variables
 //https://www.w3schools.com/howto/howto_css_modals.asp
-var modal = document.getElementById('myModal');
+var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
 
 //refreshes page
 var refreshPage = $("button").click(function() {
   location.reload(true);
 });
-
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -77,31 +76,36 @@ function endGame() {
   if (matches === 8) {
     clearInterval(timerGo);
     modal.style.display = "block";
-    $("#gameStats").text("You received " + starCount + " stars and it took " + endTime + " seconds to finish.");
-  };
-};
+    $("#gameStats").text(
+      "You received " +
+        starCount +
+        " stars and it took " +
+        endTime +
+        " seconds to finish."
+    );
+  }
+}
 
 //https://www.w3schools.com/howto/howto_css_modals.asp
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-    modal.style.display = "none";
-}
+  modal.style.display = "none";
+};
 //https://www.w3schools.com/howto/howto_css_modals.asp
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
 
 //states how many times user has clicked on cards
 function movesUpdate() {
   $(".front").click(function() {
     movesNumber += 1;
-    document.getElementById("moves").innerHTML= movesNumber + " Moves";
+    document.getElementById("moves").innerHTML = movesNumber + " Moves";
   });
-};
-
+}
 
 //Compares 2 cards that user clicks on. Leaves them open if they match, flips them back if they don't.
 function clickAndCompare() {
@@ -128,8 +132,8 @@ function clickAndCompare() {
       // compares cards, if a match update color, if no match flip back
       if (firstCard === secondCard && firstId != secondId) {
         console.log("match!");
-        openedCards[0].removeClass("open");
-        openedCards[1].removeClass("open");
+     //   openedCards[0].removeClass("open");
+     //   openedCards[1].removeClass("open");
         openedCards[0].addClass("match");
         openedCards[1].addClass("match");
         openedCards = [];
@@ -155,32 +159,31 @@ function clickAndCompare() {
 
 //Decreases stars based on how many click attempts user has made(doesn't work)
 var starCount = 3;
+var starRating = [28, 38, 48];
+
 function stars() {
   chosenCard.click(function() {
     numberOfClicks += 1;
-    console.log("you've clicked " + numberOfClicks + " times");
-    if (numberOfClicks > 26 && numberOfClicks <= 37) {
-      starCount = 2;
-      $(".stars").children().remove();
-      $(".stars").append("<li><i class=\"fa fa-star\"></i></li>");
-      $(".stars").append("<li><i class=\"fa fa-star\"></i></li>");
-      $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
-
-    }
-    if (numberOfClicks > 37 && numberOfClicks <= 47) {
-      starCount = 1;
-      $(".stars").children().remove();
-      $(".stars").append("<li><i class=\"fa fa-star\"></i></li>");
-      $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
-      $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
-    }
-    if (numberOfClicks > 47) {
-      starCount = 0;
-      $(".stars").children().remove();
-      $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
-      $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
-      $(".stars").append("<li><i class=\"fa fa-star-o\"></i></li>");
-    }
+    //console.log("you've clicked " + numberOfClicks + " times");
+    $(".stars")
+      .children()
+      .each(function(index, starElem) {
+        console.log(index, starElem);
+        if (starRating[starRating.length - 1 - index] === numberOfClicks)
+          $(starElem).addClass("star-remove-color");
+        if (numberOfClicks < 28) {
+          starCount = 3;
+        };
+        if (numberOfClicks >= 28 && numberOfClicks < 38 ) {
+          starCount = 2;
+        };
+        if (numberOfClicks >= 38 && numberOfClicks < 48){
+          starCount = 1;
+        };
+        if (numberOfClicks > 47) {
+          starCount = 0;
+        };
+      });
   });
 }
 
@@ -203,21 +206,20 @@ function stars() {
 //timer stars once user clicks on the first card
 function startTimer() {
   console.log(counter);
-    $(".front").click(function() {
-      if (counter === 0) {
-        counter = 1;
-        startTime = new Date();
-        timerGo = setInterval(function() {
-          //$('.Timer').text((new Date - start) / 1000 + " Seconds");
-          var seconds = Math.floor((new Date() - startTime) / 1000);
-          var timerText = seconds + " Seconds";
-          $(".timer").text(timerText);
-          endTime = timerText;
-        }, 1000);
-      };
-    });
+  $(".front").click(function() {
+    if (counter === 0) {
+      counter = 1;
+      startTime = new Date();
+      timerGo = setInterval(function() {
+        //$('.Timer').text((new Date - start) / 1000 + " Seconds");
+        var seconds = Math.floor((new Date() - startTime) / 1000);
+        var timerText = seconds + " Seconds";
+        $(".timer").text(timerText);
+        endTime = timerText;
+      }, 1000);
+    }
+  });
 }
-
 
 // clearInterval(timerGo); // stop the timer
 
@@ -226,6 +228,5 @@ clickAndCompare();
 stars();
 startTimer();
 movesUpdate();
-
 
 //});

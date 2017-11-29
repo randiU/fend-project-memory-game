@@ -154,3 +154,7 @@ h1 {
     text-decoration: none;
     cursor: pointer;
 }
+
+.star-remove-color {
+    color: lightgray;
+}
