@@ -1,6 +1,3 @@
-//$(document).ready(function() {
-//  "use strict";
-
 var cardPics = [
   "fa fa-diamond",
   "fa fa-paper-plane-o",
@@ -24,16 +21,19 @@ var chosenCard = $(".card");
 var cardChild = chosenCard.children();
 var openedCards = [];
 var matches = 0;
-var timer = $(".timer");
-var endTime = null;
 var numberOfClicks = 0;
 var movesNumber = 0;
 
 //startTimer variables
 var timerGo;
-startTime = 0;
+var startTime = 0;
 var counter = 0;
-var endTime = 0;
+var endTime = null;
+var timer = $(".timer");
+
+//star variables
+var starCount = 3;
+var starRating = [28, 38, 48];
 
 //endGame variables
 //https://www.w3schools.com/howto/howto_css_modals.asp
@@ -41,8 +41,8 @@ var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
 
 //refreshes page
-var refreshPage = $("button").click(function() {
-  //location.reload(true);
+var refreshPage = $("#repeat").click(function() {
+  location.reload(true);
   //movesNumber = 0;
   //numberOfClicks = 0;
   //startTime = 0;
@@ -78,39 +78,25 @@ function shuffleCards() {
   });
 }
 
+//clears out info about previous game
 function newGame(){
-
-  $("button").click(function() {
+  $(".again").click(function() {
+    modal.style.display = "none";
     deckChild.removeClass('open');
     deckChild.removeClass('match');
     deckChild.addClass('front');
-
-    movesNumber = 0;
-    document.getElementById("moves").innerHTML = movesNumber + " Moves";
-    openedCards = [];
     clearInterval(timerGo);
+    movesNumber = 0;
+    matches = 0;
+    openedCards = [];
     counter = 0;
-    document.getElementById("timer").innerHTML = "00:00";
     numberOfClicks = 0;
     starCount = 3;
+    document.getElementById("moves").innerHTML = movesNumber + " Moves";
+    document.getElementById("timer").innerHTML = "00:00";
     $(".stars").children().removeClass('star-remove-color');
     shuffleCards();
-
-    /*for (var i = 0; i < deckChild.length; i++) {
-      console.log(i);
-    }*/
-    //openedCards = [];
-    //matches = 0;
-    //endTime = null;
-    //numberOfClicks = 0;
-    //movesNumber = 0;
-
-    //startTimer variables
-    //counter = 0;
-    console.log('click');
-
   });
-  movesNumber = 0;
 };
 
 
@@ -154,10 +140,22 @@ window.onclick = function(event) {
 };
 
 //states how many times user has clicked on cards
+var movesList = [];
 function movesUpdate() {
   $(".front").click(function() {
-    movesNumber += 1;
-    document.getElementById("moves").innerHTML = movesNumber + " Moves";
+    var $moveSelection = $(this);
+    movesList.push($moveSelection);
+    console.log(movesList);
+    if (movesList.length === 2) {
+      movesNumber += 1;
+      if (movesNumber === 1) {
+        document.getElementById("moves").innerHTML = movesNumber + " Move";
+        movesList = [];
+      } else {
+        document.getElementById("moves").innerHTML = movesNumber + " Moves";
+        movesList = [];
+      };
+    };
   });
 }
 
@@ -212,9 +210,6 @@ function clickAndCompare() {
 }
 
 //Decreases stars based on how many click attempts user has made(doesn't work)
-var starCount = 3;
-var starRating = [28, 38, 48];
-
 function stars() {
   chosenCard.click(function() {
     numberOfClicks += 1;
@@ -241,10 +236,7 @@ function stars() {
   });
 }
 
-/*$(".front").hover(
-  function() {
-    $(this).css("background", "#889da0");
-  },
+/*$(".front").hover(function() {
   function() {
     console.log($(this).attr("class"))
     if (!$(this).hasClass("match")) {
@@ -284,14 +276,12 @@ function startTimer() {
   });
 }
 
-// clearInterval(timerGo); // stop the timer
 
-shuffleCards();
+
+//shuffleCards();
 clickAndCompare();
 stars();
 startTimer();
 movesUpdate();
 modalPop();
 newGame();
-
-//});
