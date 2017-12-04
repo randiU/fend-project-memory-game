@@ -75,9 +75,9 @@ h1 {
     font-size: 33px;
 }
 
-/**.deck .card.show {
-    font-size: 33px;
-} */
+.deck .card.front:hover {
+  opacity: 0.5;
+}
 
 .deck .card.match {
     cursor: default;

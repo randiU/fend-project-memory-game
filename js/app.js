@@ -236,18 +236,6 @@ function stars() {
   });
 }
 
-/*$(".front").hover(function() {
-  function() {
-    console.log($(this).attr("class"))
-    if (!$(this).hasClass("match")) {
-      $(this).css("background", "#2e3d49");
-    }
-    if ($(this).hasClass("match")) {
-      $(this).css("background", "#02ccba");
-    }
-
-  }
-);*/
 
 //Changes text from singular to plural based on time
 function secondsText(secondsTime) {
