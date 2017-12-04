@@ -19,8 +19,8 @@ var cardPics = [
   "fa fa-bicycle",
   "fa fa-bomb"
 ];
+var deckChild = $(".deck").children();
 var chosenCard = $(".card");
-var start = $(".start");
 var cardChild = chosenCard.children();
 var openedCards = [];
 var matches = 0;
@@ -42,7 +42,14 @@ var span = document.getElementsByClassName("close")[0];
 
 //refreshes page
 var refreshPage = $("button").click(function() {
-  location.reload(true);
+  //location.reload(true);
+  //movesNumber = 0;
+  //numberOfClicks = 0;
+  //startTime = 0;
+  //counter = 0;
+  //matches = 0;
+  //openedCards = [];
+  //$('.deck').children().addClass('front');
 });
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -71,19 +78,66 @@ function shuffleCards() {
   });
 }
 
+function newGame(){
+
+  $("button").click(function() {
+    deckChild.removeClass('open');
+    deckChild.removeClass('match');
+    deckChild.addClass('front');
+
+    movesNumber = 0;
+    document.getElementById("moves").innerHTML = movesNumber + " Moves";
+    openedCards = [];
+    clearInterval(timerGo);
+    counter = 0;
+    document.getElementById("timer").innerHTML = "00:00";
+    numberOfClicks = 0;
+    starCount = 3;
+    $(".stars").children().removeClass('star-remove-color');
+    shuffleCards();
+
+    /*for (var i = 0; i < deckChild.length; i++) {
+      console.log(i);
+    }*/
+    //openedCards = [];
+    //matches = 0;
+    //endTime = null;
+    //numberOfClicks = 0;
+    //movesNumber = 0;
+
+    //startTimer variables
+    //counter = 0;
+    console.log('click');
+
+  });
+  movesNumber = 0;
+};
+
+
+
 //Prompts user that they've won the game and stops the timer
-function endGame() {
+function modalPop() {
   if (matches === 8) {
     clearInterval(timerGo);
     modal.style.display = "block";
-    $("#gameStats").text(
-      "You received " +
-        starCount +
-        " stars and it took " +
-        endTime +
-        " seconds to finish."
-    );
-  }
+    if (starCount === 1) {
+      $("#gameStats").text(
+        "You received " +
+          starCount +
+          " star and it took " +
+          endTime +
+          " seconds to finish."
+      );
+    } else {
+      $("#gameStats").text(
+        "You received " +
+          starCount +
+          " stars and it took " +
+          endTime +
+          " seconds to finish."
+      );
+    };
+  };
 }
 
 //https://www.w3schools.com/howto/howto_css_modals.asp
@@ -152,7 +206,7 @@ function clickAndCompare() {
           clickOpenCount = 0;
         }, 780);
       }
-      setTimeout(endGame, 780);
+      setTimeout(modalPop, 780);
     }
   });
 }
@@ -203,6 +257,15 @@ function stars() {
   }
 );*/
 
+//Changes text from singular to plural based on time
+function secondsText(secondsTime) {
+  if (secondsTime === 1) {
+    return " Second";
+  } else {
+    return " Seconds";
+  };
+};
+
 //timer stars once user clicks on the first card
 function startTimer() {
   console.log(counter);
@@ -213,7 +276,7 @@ function startTimer() {
       timerGo = setInterval(function() {
         //$('.Timer').text((new Date - start) / 1000 + " Seconds");
         var seconds = Math.floor((new Date() - startTime) / 1000);
-        var timerText = seconds + " Seconds";
+        var timerText = seconds + secondsText(seconds);
         $(".timer").text(timerText);
         endTime = timerText;
       }, 1000);
@@ -228,5 +291,7 @@ clickAndCompare();
 stars();
 startTimer();
 movesUpdate();
+modalPop();
+newGame();
 
 //});
