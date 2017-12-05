@@ -16,6 +16,7 @@ var cardPics = [
   "fa fa-bicycle",
   "fa fa-bomb"
 ];
+//common variables
 var deckChild = $(".deck").children();
 var chosenCard = $(".card");
 var cardChild = chosenCard.children();
@@ -40,18 +41,31 @@ var starRating = [28, 38, 48];
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
 
-//refreshes page
-var refreshPage = $("#repeat").click(function() {
-  location.reload(true);
-  //movesNumber = 0;
-  //numberOfClicks = 0;
-  //startTime = 0;
-  //counter = 0;
-  //matches = 0;
-  //openedCards = [];
-  //$('.deck').children().addClass('front');
-});
 
+function gameInit() {
+  modal.style.display = "none";
+  deckChild.removeClass('open');
+  deckChild.removeClass('match');
+  deckChild.addClass('front');
+  clearInterval(timerGo);
+  movesNumber = 0;
+  matches = 0;
+  openedCards = [];
+  counter = 0;
+  numberOfClicks = 0;
+  starCount = 3;
+  document.getElementById("moves").innerHTML = movesNumber + " Moves";
+  document.getElementById("timer").innerHTML = "00:00";
+  $(".stars").children().removeClass('star-remove-color');
+  shuffleCards();
+}
+
+//restarts game
+function restart() {
+  $("#repeat").click(function() {
+    gameInit();
+  });
+}
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
   var currentIndex = array.length,
@@ -81,25 +95,9 @@ function shuffleCards() {
 //clears out info about previous game
 function newGame(){
   $(".again").click(function() {
-    modal.style.display = "none";
-    deckChild.removeClass('open');
-    deckChild.removeClass('match');
-    deckChild.addClass('front');
-    clearInterval(timerGo);
-    movesNumber = 0;
-    matches = 0;
-    openedCards = [];
-    counter = 0;
-    numberOfClicks = 0;
-    starCount = 3;
-    document.getElementById("moves").innerHTML = movesNumber + " Moves";
-    document.getElementById("timer").innerHTML = "00:00";
-    $(".stars").children().removeClass('star-remove-color');
-    shuffleCards();
+    gameInit();
   });
 };
-
-
 
 //Prompts user that they've won the game and stops the timer
 function modalPop() {
@@ -266,10 +264,11 @@ function startTimer() {
 
 
 
-//shuffleCards();
+shuffleCards();
 clickAndCompare();
 stars();
 startTimer();
 movesUpdate();
 modalPop();
 newGame();
+restart();
