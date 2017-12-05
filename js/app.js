@@ -41,7 +41,7 @@ var starRating = [28, 38, 48];
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
 
-
+//Restores variables back to original state
 function gameInit() {
   modal.style.display = "none";
   deckChild.removeClass('open');
@@ -182,8 +182,6 @@ function clickAndCompare() {
       // compares cards, if a match update color, if no match flip back
       if (firstCard === secondCard && firstId != secondId) {
         console.log("match!");
-     //   openedCards[0].removeClass("open");
-     //   openedCards[1].removeClass("open");
         openedCards[0].addClass("match");
         openedCards[1].addClass("match");
         openedCards = [];
