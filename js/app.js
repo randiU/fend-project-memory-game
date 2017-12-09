@@ -22,7 +22,6 @@ var chosenCard = $(".card");
 var cardChild = chosenCard.children();
 var openedCards = [];
 var matches = 0;
-var numberOfClicks = 0;
 var movesNumber = 0;
 
 //startTimer variables
@@ -34,7 +33,8 @@ var timer = $(".timer");
 
 //star variables
 var starCount = 3;
-var starRating = [28, 38, 48];
+var starRating = [28, 38, null];
+var numberOfClicks = 0;
 
 //endGame variables
 //https://www.w3schools.com/howto/howto_css_modals.asp
@@ -85,7 +85,9 @@ function shuffle(array) {
 //shuffles cards immediately
 function shuffleCards() {
   shuffle(cardPics);
+  //removes child element of chosenCard
   cardChild.removeClass();
+  //goes through each card and adds the shuffled cards as new child elements
   cardChild.each(function(index) {
     $(this).addClass(cardPics[index]);
     index++;
@@ -103,7 +105,9 @@ function newGame(){
 function modalPop() {
   if (matches === 8) {
     clearInterval(timerGo);
+    //changes modal display from none to block so it becomes visable
     modal.style.display = "block";
+    //ensuring correct grammar
     if (starCount === 1) {
       $("#gameStats").text(
         "You received " +
@@ -137,14 +141,19 @@ window.onclick = function(event) {
   }
 };
 
+
+
 //states how many times user has clicked on cards
-var movesList = [];
+let movesList = [];
 function movesUpdate() {
   $(".front").click(function() {
-    var $moveSelection = $(this);
+    let $moveSelection = $(this);
+    //adds card user clicks on to movesList array
     movesList.push($moveSelection);
-    console.log(movesList);
-    if (movesList.length === 2) {
+    let firstMoveId = movesList[0].attr("id");
+    let secondMoveId = movesList[1].attr("id");
+    //checks that user has clicked on two cards and that it's not the same card
+    if (movesList.length === 2 && firstMoveId != secondMoveId) {
       movesNumber += 1;
       if (movesNumber === 1) {
         document.getElementById("moves").innerHTML = movesNumber + " Move";
@@ -153,20 +162,25 @@ function movesUpdate() {
         document.getElementById("moves").innerHTML = movesNumber + " Moves";
         movesList = [];
       };
+    } else {
+      //if user clicked on same card twice, this will remove the duplicate card from the array
+      movesList.splice(-1,1);
     };
   });
 }
 
+
+
 //Compares 2 cards that user clicks on. Leaves them open if they match, flips them back if they don't.
 function clickAndCompare() {
+  //keeps track of how many cards are open
   var clickOpenCount = 0;
-
   $(".front").click(function() {
     var $clickedCard = $(this);
     var isOpen = $clickedCard.hasClass("open");
-    console.log(isOpen); //should be false initially, class has not been toggled to open.
+    //makes sure the user hasn't clicked on more than two cards and that card was not open
     if (openedCards.length < 2 && !isOpen) {
-      // isOpen === false
+      //flips cards over and adds them to the openedCards array
       $clickedCard.toggleClass("front");
       $clickedCard.toggleClass("open");
       openedCards.push($clickedCard); //adds clicked card to openedCards array
@@ -184,11 +198,11 @@ function clickAndCompare() {
         console.log("match!");
         openedCards[0].addClass("match");
         openedCards[1].addClass("match");
-        openedCards = [];
-        clickOpenCount = 0;
+        openedCards = []; //resets array
+        clickOpenCount = 0; //resets count
         matches += 1;
-        console.log(matches);
       } else {
+        //delays card flip back and resets openedCards and clickOpenCount
         setTimeout(function() {
           console.log("dang!");
           console.log(firstCard, secondCard);
@@ -209,24 +223,27 @@ function clickAndCompare() {
 function stars() {
   chosenCard.click(function() {
     numberOfClicks += 1;
-    //console.log("you've clicked " + numberOfClicks + " times");
+    console.log("you've clicked " + numberOfClicks + " times");
     $(".stars")
       .children()
       .each(function(index, starElem) {
         console.log(index, starElem);
+
+        /* Indexes backwards through the starRating array and if numberOfClicks
+        equals current index, the star's color is changed to lightgray
+        */
         if (starRating[starRating.length - 1 - index] === numberOfClicks)
           $(starElem).addClass("star-remove-color");
+
+        //used in modalPop to let user know how many stars they received
         if (numberOfClicks < 28) {
           starCount = 3;
         };
         if (numberOfClicks >= 28 && numberOfClicks < 38 ) {
           starCount = 2;
         };
-        if (numberOfClicks >= 38 && numberOfClicks < 48){
+        if (numberOfClicks >= 38){
           starCount = 1;
-        };
-        if (numberOfClicks > 47) {
-          starCount = 0;
         };
       });
   });
