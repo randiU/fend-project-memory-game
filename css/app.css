@@ -94,6 +94,8 @@ h1 {
     font-size: 33px;
 }
 
+
+
 /*
  * Styles for the Score Panel
  */
@@ -167,4 +169,66 @@ h1 {
 /*Styles for Stars */
 .star-remove-color {
     color: lightgray;
+}
+
+/*Scaling */
+@media only screen and (max-width: 800px) {
+  .deck {
+    max-width: 500px;
+    min-height: auto;
+    padding-bottom: 17px;
+  }
+
+  .deck .card {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 17px;
+  }
+
+  .deck .card.open {
+    font-size: 30px;
+  }
+
+  .score-panel {
+    max-width: 250px;
+    padding-bottom: 0;
+    display: block;
+    text-align: center;
+    line-height: 1.7em;
+  }
+
+  h1 {
+    margin: 0;
+    padding: 10px 0;
+  }
+
+@media only screen and (max-width: 525px) {
+  .deck {
+    max-width: 250px;
+    min-height: auto;
+    padding: 12px;
+  }
+
+  .deck .card {
+    height: 50px;
+    width: 50px;
+    margin-bottom: 10px;
+  }
+
+  .deck .card.open {
+    font-size: 20px;
+  }
+
+  .score-panel {
+    max-width: 250px;
+    padding-bottom: 0;
+    display: block;
+    text-align: center;
+    line-height: 1.7em;
+  }
+
+  h1 {
+    margin: 0;
+    padding: 10px 0;
+  }
 }
