@@ -13,19 +13,19 @@ and match the cards as quickly as possible. The player is rated by how many move
 
 ## Screenshots
 
-![Start of game](img/memoryGameStart.png)
+![Start of game](img/memoryGameStart.PNG)
 
 The beginning of the game. The faces of the cards are not displayed. Cards are randomly shuffled for each new game.
 
-![First move](img/firstMove.png)
+![First move](img/firstMove.PNG)
 
 The timer starts upon the players first card selection. One card is selected in the image above. Player can see what the face of the card is. This card will remain open until a second card is chosen. If player makes an incorrect guess, both cards will be flipped over.  
 
-![Match](img/match.png)
+![Match](img/match.PNG)
 
 If the cards match, the color of the cards will permanently change and both card will remain open.
 
-![endGame](img/endGame.png)
+![endGame](img/endGame.PNG)
 
 Once player has matched all of the cards, a modal will pop up and let the player know how many stars they received and how long it took to match all of the cards. Player is also given the choice to start a new game.
 
