@@ -187,7 +187,6 @@ function clickAndCompare() {
       clickOpenCount += 1;
     }
     if (openedCards.length === 2) {
-      // https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
       var firstCard = openedCards[0].children().attr("class");
       var secondCard = openedCards[1].children().attr("class");
       var firstId = openedCards[0].attr("id");
@@ -276,38 +275,6 @@ function startTimer() {
     }
   });
 }
-
-/*let $el = $(".deck");
-let elHeight = $el.outerHeight();
-let elWidth = $el.outerWidth();
-
-let $wrapper = $(".scale-wrapper");
-
-$wrapper.resizeable({
-  resize: doResize
-});
-
-function doResize(event,ui) {
-  let scale, origin;
-  scale = Math.min(
-    ui.size.width/elWidth,
-    ui.size.height/elHeight
-  );
-
-  $el.css({
-    transform: "translate(-50%, -50%) " + " scale(" + scale + ")"
-  });
-}
-
-let starterData = {
-  size: {
-    width: $wrapper.width(),
-    height: $wrapper.height()
-  }
-}
-
-doResize(null,starterData);*/
-
 
 
 shuffleCards();

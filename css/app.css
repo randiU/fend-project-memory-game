@@ -149,6 +149,7 @@ h1 {
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
+    font-family: "Sans-serif", verdana, bold;
 }
 
 /* The Close Button */
@@ -220,7 +221,7 @@ h1 {
   }
 
   .score-panel {
-    max-width: 250px;
+    max-width: 275px;
     padding-bottom: 0;
     display: block;
     text-align: center;
