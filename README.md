@@ -11,7 +11,7 @@ and match the cards as quickly as possible. The player is rated by how many move
 1. Download or clone the [repo](https://github.com/randiU/fend-project-memory-game.git).
 2. Open `index.html` file in your browser.
 
-##Screenshots
+## Screenshots
 
 ![Start of game](img/memoryGameStart.png)
 
