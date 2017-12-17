@@ -17,29 +17,29 @@ var cardPics = [
   "fa fa-bomb"
 ];
 //common variables
-var deckChild = $(".deck").children();
-var chosenCard = $(".card");
-var cardChild = chosenCard.children();
-var openedCards = [];
-var matches = 0;
-var movesNumber = 0;
+let deckChild = $(".deck").children();
+let chosenCard = $(".card");
+let cardChild = chosenCard.children();
+let openedCards = [];
+let matches = 0;
+let movesNumber = 0;
 
 //startTimer variables
-var timerGo;
-var startTime = 0;
-var counter = 0;
-var endTime = null;
-var timer = $(".timer");
+let timerGo;
+let startTime = 0;
+let counter = 0;
+let endTime = null;
+let timer = $(".timer");
 
 //star variables
-var starCount = 3;
-var starRating = [28, 38, null];
-var numberOfClicks = 0;
+let starCount = 3;
+let starRating = [28, 38, null];
+let numberOfClicks = 0;
 
 //endGame variables
 //https://www.w3schools.com/howto/howto_css_modals.asp
-var modal = document.getElementById("myModal");
-var span = document.getElementsByClassName("close")[0];
+let modal = document.getElementById("myModal");
+let span = document.getElementsByClassName("close")[0];
 
 //Restores variables back to original state
 function gameInit() {
@@ -68,7 +68,7 @@ function restart() {
 }
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-  var currentIndex = array.length,
+  let currentIndex = array.length,
     temporaryValue,
     randomIndex;
 
@@ -174,10 +174,10 @@ function movesUpdate() {
 //Compares 2 cards that user clicks on. Leaves them open if they match, flips them back if they don't.
 function clickAndCompare() {
   //keeps track of how many cards are open
-  var clickOpenCount = 0;
+  let clickOpenCount = 0;
   $(".front").click(function() {
-    var $clickedCard = $(this);
-    var isOpen = $clickedCard.hasClass("open");
+    let $clickedCard = $(this);
+    let isOpen = $clickedCard.hasClass("open");
     //makes sure the user hasn't clicked on more than two cards and that card was not open
     if (openedCards.length < 2 && !isOpen) {
       //flips cards over and adds them to the openedCards array
@@ -187,10 +187,10 @@ function clickAndCompare() {
       clickOpenCount += 1;
     }
     if (openedCards.length === 2) {
-      var firstCard = openedCards[0].children().attr("class");
-      var secondCard = openedCards[1].children().attr("class");
-      var firstId = openedCards[0].attr("id");
-      var secondId = openedCards[1].attr("id");
+      let firstCard = openedCards[0].children().attr("class");
+      let secondCard = openedCards[1].children().attr("class");
+      let firstId = openedCards[0].attr("id");
+      let secondId = openedCards[1].attr("id");
 
       // compares cards, if a match update color, if no match flip back
       if (firstCard === secondCard && firstId != secondId) {
@@ -267,8 +267,8 @@ function startTimer() {
       startTime = new Date();
       timerGo = setInterval(function() {
         //$('.Timer').text((new Date - start) / 1000 + " Seconds");
-        var seconds = Math.floor((new Date() - startTime) / 1000);
-        var timerText = seconds + secondsText(seconds);
+        let seconds = Math.floor((new Date() - startTime) / 1000);
+        let timerText = seconds + secondsText(seconds);
         $(".timer").text(timerText);
         endTime = timerText;
       }, 1000);
